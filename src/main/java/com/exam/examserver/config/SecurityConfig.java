@@ -11,32 +11,26 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-	 @Autowired
-	    private JwtAuthenticationEntryPoint point;
-	    @Autowired
-	    private JwtAuthenticationFilter filter;
+	@Autowired
+	private JwtAuthenticationEntryPoint point;
+	@Autowired
+	private JwtAuthenticationFilter filter;
 
-	    @Bean
-	    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-	        http.csrf(csrf -> csrf.disable())
-	                .authorizeHttpRequests( auth->
-	                auth.requestMatchers("/generate-token","/user/").permitAll()
-	                .requestMatchers(HttpMethod.OPTIONS).permitAll()
-	                .anyRequest()
-	                .authenticated())
-	                .exceptionHandling(ex -> ex.authenticationEntryPoint(point))
-	                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-	               
-	        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-	        return http.build();
-	    }
+		http.csrf(csrf -> csrf.disable())
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/generate-token", "/user/").permitAll()
+						.requestMatchers(HttpMethod.OPTIONS).permitAll().anyRequest().authenticated())
+				.exceptionHandling(ex -> ex.authenticationEntryPoint(point))
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-	
+		http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+		return http.build();
+	}
 
 }
