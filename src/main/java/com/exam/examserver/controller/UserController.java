@@ -3,6 +3,7 @@ package com.exam.examserver.controller;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +26,16 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder; 
+	
+	
 	@PostMapping("/")
 	public User createUser(@RequestBody User user) throws Exception {
 		Set<UserRole> roles = new HashSet<>();
+		user.setProfile("default.png");
+		user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
+		
 		Role role = new Role();
 		role.setRoleId(45L);
 		role.setRoleName("NORMAL");

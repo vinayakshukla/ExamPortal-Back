@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.exam.examserver.model.Role;
 import com.exam.examserver.model.User;
@@ -17,6 +18,9 @@ import com.exam.examserver.service.UserService;
 public class ExamserverApplication implements CommandLineRunner {
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public static void main(String[] args)   {
 		SpringApplication.run(ExamserverApplication.class, args);
@@ -27,8 +31,8 @@ public class ExamserverApplication implements CommandLineRunner {
 //		User user =new User();
 //		user.setFirstName("Vinku");
 //		user.setLastName("Shukla");
-//		user.setUsername("VinkuRocks");
-//		user.setPassword("VinkuRocks1@");
+//		user.setUsername("Vinayak");
+//		user.setPassword(this.bCryptPasswordEncoder.encode("Vinayak"));
 //		user.setEmail("vinku@gmail.com");
 //		user.setProfile("default.png");
 //		
