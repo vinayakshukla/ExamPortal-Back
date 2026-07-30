@@ -1,5 +1,6 @@
 package com.exam.examserver.model.exam;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,7 +30,8 @@ public class Question {
 	
 	private String answer;
 	
-    @ManyToOne(fetch = FetchType.EAGER)
+//	pending solve quiz_id issue
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Quiz quiz;
     
      
@@ -39,7 +41,7 @@ public class Question {
 		// TODO Auto-generated constructor stub
 	}
 	public Question(Long quesId, String content, String image, String option1, String option2, String option3,
-			String option4, String answer, Quiz quiz) {
+			String option4, String answer) {
 		super();
 		this.quesId = quesId;
 		this.content = content;
@@ -49,7 +51,7 @@ public class Question {
 		this.option3 = option3;
 		this.option4 = option4;
 		this.answer = answer;
-		this.quiz = quiz;
+	
 	}
 	public Long getQuesId() {
 		return quesId;

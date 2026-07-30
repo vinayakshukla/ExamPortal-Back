@@ -1,6 +1,8 @@
 package com.exam.examserver.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class QuestionServiceImpl implements QuestionService{
 	@Override
 	public Question addQuestion(Question question) {
 		// TODO Auto-generated method stub
+		List<String> list =new ArrayList<>();
+		list.forEach(null);
 		return this.questionRepository.save(question);
 	}
 
