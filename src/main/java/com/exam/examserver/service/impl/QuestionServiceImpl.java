@@ -11,24 +11,34 @@ import org.springframework.stereotype.Service;
 import com.exam.examserver.model.exam.Question;
 import com.exam.examserver.model.exam.Quiz;
 import com.exam.examserver.repository.QuestionRepository;
+import com.exam.examserver.repository.QuizRepository;
 import com.exam.examserver.service.QuestionService;
 @Service
 public class QuestionServiceImpl implements QuestionService{
 	
 	@Autowired
 	QuestionRepository questionRepository;
+	
+	@Autowired
+	QuizRepository quizRepository;
 
 	@Override
 	public Question addQuestion(Question question) {
-		// TODO Auto-generated method stub
-		List<String> list =new ArrayList<>();
-		list.forEach(null);
-		return this.questionRepository.save(question);
+		return saveQuestion(question);
 	}
 
 	@Override
 	public Question updateQuestion(Question question) {
-		// TODO Auto-generated method stub
+		return saveQuestion(question);
+	}
+	
+	private Question saveQuestion(Question question) {
+		if (question.getQuiz() != null && question.getQuiz().getqId() != null) {
+			Quiz managedQuiz = this.quizRepository.findById(question.getQuiz().getqId()).orElse(null);
+			if (managedQuiz != null) {
+				question.setQuiz(managedQuiz);
+			}
+		}
 		return this.questionRepository.save(question);
 	}
 

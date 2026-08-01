@@ -1,13 +1,6 @@
 package com.exam.examserver.model.exam;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Question {
@@ -31,7 +24,8 @@ public class Question {
 	private String answer;
 	
 //	pending solve quiz_id issue
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "qId", nullable = false)
 	private Quiz quiz;
     
      
